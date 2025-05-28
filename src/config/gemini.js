@@ -46,6 +46,7 @@ async function runGeminiChat(prompt) {
   const response = result.response;
 
   console.log(response.candidates[0].content.parts[0].text);
+  return response.candidates[0].content.parts[0].text;
 }
 
 export default runGeminiChat;
