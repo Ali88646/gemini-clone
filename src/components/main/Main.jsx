@@ -1,8 +1,18 @@
 import React from "react";
-import "./main.css";
 import { assets } from "../../assets/assets";
 import { useAppContext } from "../../context/Context";
 import MarkdownRenderer from "./MarkDownViewr";
+import DarkModeToggle from "./DarkModeToggle";
+import { IoMdSend } from "react-icons/io";
+import { FaRegCompass } from "react-icons/fa6";
+
+const suggestData = [
+  "Suggest beautiful places to see an upcoming road trip",
+  "Briefly summarize this concept: urban planning",
+  "Brainstorm team bonding activities for our work retreat",
+  "Improve the readability of the following code",
+];
+
 const Main = () => {
   const {
     onSent,
@@ -12,55 +22,88 @@ const Main = () => {
     resultData,
     input,
     setInput,
+    user,
   } = useAppContext();
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && input.trim().length !== 0) {
+      onSent(input);
+    }
+  };
+
   return (
-    <div className="main">
-      <div className="nav">
+    <div className="flex-1 min-h-screen pb-[15vh] relative dark:bg-gray-900">
+      <div className="flex items-center justify-between text-[22px] p-5 text-[#585858] dark:text-gray-100  ">
         <p>Gemini</p>
-        <img src={assets.user_icon} alt="user-icon" />
+        <div className="flex items-center gap-3">
+          <DarkModeToggle />
+          <img
+            src={user?.photoURL || assets.user_icon}
+            alt="user-icon"
+            className="w-10 rounded-full cursor-pointer"
+          />
+        </div>
       </div>
-      <div className="main-container">
+
+      <div className="max-w-[900px] mx-auto">
         {!showResult ? (
           <>
-            <div className="greet">
+            <div className="my-12 text-[56px] text-[#c4c7c5] font-medium p-5">
               <p>
-                <span>Hello, Ali.</span>
+                <span className="bg-gradient-to-r from-[#4b90ff] to-[#ff5546] bg-clip-text text-transparent">
+                  Hello, {user?.displayName}.
+                </span>
               </p>
-              <p>How can i help you today?</p>
+              <p>How can I help you today?</p>
             </div>
-            <div className="cards">
-              <div className="card">
-                <p>Suggest beautiful places to see an upcoming road trip</p>
-                <img src={assets.compass_icon} alt="compas-icon" />
-              </div>
-              <div className="card">
-                <p>Briefly summarize this concept: urban planning</p>
-                <img src={assets.bulb_icon} alt="bulb-icon" />
-              </div>
-              <div className="card">
-                <p>Brainstorm team bonding activities for our work retreat</p>
-                <img src={assets.message_icon} alt="message-icon" />
-              </div>
-              <div className="card">
-                <p>Improve the readability of the following code</p>
-                <img src={assets.code_icon} alt="code-icon" />
-              </div>
+
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4 p-5">
+              {suggestData.map((item, index) => {
+                return (
+                  <div
+                    onClick={() => onSent(item)}
+                    key={index}
+                    className="h-[200px] p-4 bg-[#f0f4f9] dark:bg-gray-700  rounded-lg relative cursor-pointer dark:hover:bg-gray-600 hover:bg-[#dfe4ea]"
+                  >
+                    <p className="text-[#585858] text-[17px] dark:text-gray-100">
+                      {item}
+                    </p>
+                    <img
+                      src={assets.compass_icon}
+                      alt="compass-icon"
+                      className="w-[35px] p-1 absolute bg-white dark:bg-gray-600 rounded-full bottom-2 right-2"
+                    />
+
+                    <FaRegCompass
+                      size={35}
+                      className="p-1 absolute bg-white dark:bg-gray-600 rounded-full bottom-2 right-2 dark:text-gray-400"
+                    />
+                  </div>
+                );
+              })}
             </div>
           </>
         ) : (
-          <div className="result">
-            <div className="result-title">
-              <img src={assets.user_icon} alt="user-icon" />
-              <p>{recentPrompt}</p>
+          <div className="px-[5%] max-h-[70vh] overflow-y-scroll hide-scrollbar">
+            <div className="my-10 flex items-center gap-5">
+              <img
+                src={user?.photoURL || assets.user_icon}
+                alt="user-icon"
+                className="w-10 rounded-full"
+              />
+              <p className="dark:text-gray-100">{recentPrompt}</p>
             </div>
-            <div className="result-data">
-              <img src={assets.gemini_icon} alt="gemini-icon" />
+            <div className="flex items-start gap-5">
+              <img
+                src={assets?.gemini_icon}
+                alt="gemini-icon"
+                className="w-10 rounded-full"
+              />
               {loading ? (
-                <div className="loader">
-                  <hr />
-                  <hr />
-                  <hr />
+                <div className="loader w-full flex flex-col gap-3">
+                  <hr className="rounded-md border-none bg-[#f6f7f8]" />
+                  <hr className="rounded-md border-none bg-[#f6f7f8]" />
+                  <hr className="rounded-md border-none bg-[#f6f7f8]" />
                 </div>
               ) : (
                 <MarkdownRenderer content={resultData} />
@@ -69,30 +112,29 @@ const Main = () => {
           </div>
         )}
 
-        <div className="main-bottom">
-          <div className="search-box">
+        <div className="absolute bottom-0 w-full max-w-[900px] px-5 mx-auto">
+          <div className="flex items-center justify-between gap-5 bg-[#f0f4f9] dark:bg-gray-600 px-5 py-2.5 rounded-full">
             <input
-              onChange={(e) => {
-                setInput(e.target.value);
-              }}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
               value={input}
               type="text"
               placeholder="Enter prompt here"
+              className="flex-1 bg-transparent border-none outline-none p-2 text-[18px] dark:placeholder:text-gray-400 dark:text-gray-200"
             />
-            <div>
-              <img src={assets.gallery_icon} alt="galery-icon" />
-              <img src={assets.mic_icon} alt="mic-icon" />
-              <img
+            <div className="flex items-center gap-4">
+              <IoMdSend
                 onClick={() => onSent(input)}
-                src={assets.send_icon}
-                alt="send-icon"
-                className={`send-icon ${!input.split("").length && "hidden"}`}
+                size={24}
+                className={`cursor-pointer ${
+                  !input.trim().length ? "hidden" : ""
+                } dark:text-gray-100`}
               />
             </div>
           </div>
-          <p className="bottom-info">
+          <p className="text-[13px] mt-4 text-center font-light dark:text-gray-100">
             Gemini may display inaccurate info, including about people, so
-            double check its response, Your privary and Gemin Apps
+            double check its response. Your privacy and Gemini Apps.
           </p>
         </div>
       </div>

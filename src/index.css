@@ -1,15 +1,31 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: Outfit;
-}
+
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 #root {
   min-height: 100vh;
   display: flex;
-  animation: fadeIn 1.5s;
+  animation: fadeIn 1.5s linear;
+}
+.sideBar {
+  animation: fadeIn 1.5s linear;
+}
+
+* {
+  transition: all 0.3s ease;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.loader hr {
+  background: linear-gradient(to right, #9ed7ff, #ffffff, #9ed7ff);
+  background-size: 800px 50px;
+  height: 20px;
+  animation: loader 3s infinite linear;
 }
 
 @keyframes fadeIn {
@@ -18,5 +34,13 @@
   }
   100% {
     opacity: 1;
+  }
+}
+@keyframes loader {
+  0% {
+    background-position: -800px 0px;
+  }
+  100% {
+    background-position: 800px 0px;
   }
 }
