@@ -68,7 +68,7 @@ const Sidebar = () => {
                 className="flex items-center gap-2 px-4 py-2 pr-10 rounded-full text-gray-800 dark:text-gray-100 cursor-pointer hover:bg-[#e2e6eb] dark:hover:bg-gray-700"
               >
                 <FiMessageSquare size={16} />
-                <p>{prompt.split(" ").slice(4).join(" ")}...</p>
+                <p>{prompt.split(" ").slice(0, 4).join(" ")}...</p>
               </div>
             ))}
           </div>
