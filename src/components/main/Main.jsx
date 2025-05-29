@@ -68,11 +68,6 @@ const Main = () => {
                     <p className="text-[#585858] text-[17px] dark:text-gray-100">
                       {item}
                     </p>
-                    <img
-                      src={assets.compass_icon}
-                      alt="compass-icon"
-                      className="w-[35px] p-1 absolute bg-white dark:bg-gray-600 rounded-full bottom-2 right-2"
-                    />
 
                     <FaRegCompass
                       size={35}
