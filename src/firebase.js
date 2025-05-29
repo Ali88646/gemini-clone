@@ -3,12 +3,12 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  apiKey: "AIzaSyDA9uq5u9ytGs-o77eerh_n40we9hw7-vQ",
+  authDomain: "gemini-clone-2eeab.firebaseapp.com",
+  projectId: "gemini-clone-2eeab",
+  storageBucket: "gemini-clone-2eeab.firebasestorage.app",
+  messagingSenderId: "312524152415",
+  appId: "1:312524152415:web:156fdbfdc92050432685ea",
 };
 
 const app = initializeApp(firebaseConfig);

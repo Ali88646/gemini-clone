@@ -31,8 +31,6 @@ const ContextProvider = (props) => {
     });
     const responseText = await runGeminiChat(prompt);
 
-    //firebaselogic
-
     setResultData(responseText);
     setLoading(false);
     setInput("");
