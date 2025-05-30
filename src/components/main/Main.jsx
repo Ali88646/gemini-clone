@@ -107,7 +107,7 @@ const Main = () => {
           </div>
         )}
 
-        <div className="absolute bottom-0 w-full max-w-[900px] px-5 mx-auto">
+        <div className="fixed bottom-0 w-full max-w-[900px] px-5 mx-auto bg-[#f0f4f9] dark:bg-gray-800 dark:md:bg-transparent md:bg-transparent pt-4 md:pt-0">
           <div className="flex items-center justify-between gap-5 bg-[#f0f4f9] dark:bg-gray-600 px-5 py-2.5 rounded-full">
             <input
               onChange={(e) => setInput(e.target.value)}
